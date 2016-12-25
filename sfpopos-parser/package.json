@@ -1,0 +1,16 @@
+{
+  "name": "sfpopos-parser",
+  "version": "1.0.0",
+  "description": "Parses the SF POPOS KMZ data into JSON.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Lai <themichaellai@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "ramda": "^0.22.1",
+    "xml2js": "^0.4.17"
+  }
+}
