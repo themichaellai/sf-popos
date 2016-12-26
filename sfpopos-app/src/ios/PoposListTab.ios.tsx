@@ -1,10 +1,14 @@
+import * as R from 'ramda';
 import * as React from 'react';
 import {
   Navigator,
+  Route,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+
+import { PoposInfo } from '../types';
 
 import * as PoposList from './PoposList.ios';
 
@@ -21,43 +25,31 @@ const styles = StyleSheet.create({
   },
 });
 
-type SceneName = 'list';
+interface Props {
+  poposList: Array<PoposInfo>;
+}
 
-interface Scene {
-  name: SceneName,
-  title: string,
-  index: number,
-};
-
-interface Scenes {
-  list: Scene;
-};
-
-const scenes: Scenes = {
-  list: {
-    name: 'list',
-    title: 'SF Popos',
-    index: 0,
-  },
-};
-
-export class PoposListTab extends React.Component<PoposList.Props, void> {
+export class PoposListTab extends React.Component<Props, void> {
   constructor() {
     super();
     this._renderScene = this._renderScene.bind(this);
   }
 
-  props: PoposList.Props;
-
-  _renderScene({ name }: Scene) {
-    if (name === 'list') {
+  _renderScene(route: Route, navigator: Navigator) {
+    const {
+      component: Component,
+      passProps,
+    } = route;
+    if (Component != null) {
+      const props = R.defaultTo({}, passProps);
       return (
         <View style={styles.navigatorInner}>
-          <PoposList.PoposList poposList={this.props.poposList} />
+          <Component {...props} />
         </View>
       );
+    } else {
+      return <View style={styles.navigatorInner} />;
     }
-    return (<View />);
   }
 
   render() {
@@ -73,10 +65,19 @@ export class PoposListTab extends React.Component<PoposList.Props, void> {
       />
     );
 
+    const initialRoute: Route = {
+      component: PoposList.PoposList,
+      passProps: {
+        poposList: this.props.poposList,
+      },
+      title: 'SF Popos',
+      index: 0,
+    };
+
     return (
       <Navigator
         navigationBar={navigationBar}
-        initialRoute={scenes.list}
+        initialRoute={initialRoute}
         renderScene={this._renderScene}
       />
     );

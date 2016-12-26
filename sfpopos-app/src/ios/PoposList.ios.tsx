@@ -1,6 +1,8 @@
+import * as R from 'ramda';
 import * as React from 'react';
 import {
   ListView,
+  Navigator,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -15,13 +17,17 @@ const rowStyles = StyleSheet.create({
   },
 });
 
-const renderRow = (popos: PoposInfo) => (
-  <TouchableHighlight style={rowStyles.row}>
-    <Text>
-      {popos.name}
-    </Text>
-  </TouchableHighlight>
-);
+const renderRow = R.curry((navigator: Navigator, popos: PoposInfo) => {
+  //const onPress = navigator.push({
+  //});
+  return (
+    <TouchableHighlight style={rowStyles.row}>
+      <Text>
+        {popos.name}
+      </Text>
+    </TouchableHighlight>
+  );
+});
 
 const renderSeparator = (sectionId: number, rowId: number) => (
   <View
@@ -35,7 +41,8 @@ const renderSeparator = (sectionId: number, rowId: number) => (
 );
 
 export interface Props {
-  poposList: Array<PoposInfo>,
+  poposList: Array<PoposInfo>;
+  navigator: Navigator;
 };
 
 interface State {
@@ -65,7 +72,7 @@ export class PoposList extends React.Component<Props, State> {
   render() {
     return (
       <ListView
-        renderRow={renderRow}
+        renderRow={renderRow(this.props.navigator)}
         renderSeparator={renderSeparator}
         dataSource={this.state.dataSource}
       />

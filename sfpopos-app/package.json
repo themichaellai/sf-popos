@@ -3,17 +3,19 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-    "build": "node_modules/.bin/tsc",
-    "watch": "node_modules/.bin/tsc -w",
+		"build": "node_modules/.bin/tsc",
+		"watch": "node_modules/.bin/tsc -w",
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"lint": "node_modules/.bin/eslint ios index.ios.js",
 		"test": "jest"
 	},
 	"dependencies": {
+		"ramda": "^0.22.1",
 		"react": "15.4.1",
 		"react-native": "0.39.2"
 	},
 	"devDependencies": {
+		"@types/ramda": "^0.0.2",
 		"@types/react-native": "^0.37.1",
 		"babel-eslint": "^7.1.1",
 		"babel-jest": "18.0.0",

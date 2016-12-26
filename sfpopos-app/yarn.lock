@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@types/ramda@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.0.2.tgz#04e9b560b118eaf48542945ef9b2701c3f9832e3"
+
 "@types/react-native@^0.37.1":
   version "0.37.1"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.37.1.tgz#7423997e365aa31fbecf5a69ee63d67f61858438"
@@ -3343,6 +3347,10 @@ qs@4.0.0:
 qs@~6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.0.tgz#f403b264f23bc01228c74131b407f18d5ea5d442"
+
+ramda@^0.22.1:
+  version "0.22.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.22.1.tgz#031da0c3df417c5b33c96234757eb37033f36a0e"
 
 random-bytes@~1.0.0:
   version "1.0.0"
