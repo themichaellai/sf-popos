@@ -1,8 +1,4 @@
-/* @flow */
-
-import React, {
-  Component,
-} from 'react';
+import * as React from 'react';
 import {
   ListView,
   StyleSheet,
@@ -11,7 +7,7 @@ import {
   View,
 } from 'react-native';
 
-import type { PoposInfo } from '../types';
+import { PoposInfo } from '../types';
 
 const rowStyles = StyleSheet.create({
   row: {
@@ -38,15 +34,15 @@ const renderSeparator = (sectionId: number, rowId: number) => (
   />
 );
 
-export type Props = {
+export interface Props {
   poposList: Array<PoposInfo>,
 };
 
-type State = {
+interface State {
   dataSource: any,
 };
 
-export class PoposList extends Component<void, Props, State> {
+export class PoposList extends React.Component<Props, State> {
   constructor(props: Props) {
     super();
 

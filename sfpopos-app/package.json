@@ -3,6 +3,8 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
+    "build": "node_modules/.bin/tsc",
+    "watch": "node_modules/.bin/tsc -w",
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"lint": "node_modules/.bin/eslint ios index.ios.js",
 		"test": "jest"
@@ -12,18 +14,18 @@
 		"react-native": "0.39.2"
 	},
 	"devDependencies": {
+		"@types/react-native": "^0.37.1",
 		"babel-eslint": "^7.1.1",
 		"babel-jest": "18.0.0",
 		"babel-preset-react-native": "1.9.1",
 		"eslint": "^3.12.2",
 		"eslint-config-airbnb": "^13.0.0",
-		"eslint-plugin-flowtype": "^2.29.1",
 		"eslint-plugin-import": "^2.1.0",
 		"eslint-plugin-jsx-a11y": "^2.2.3",
 		"eslint-plugin-react": "^6.6.0",
-		"flow-bin": "^0.35.0",
 		"jest": "18.0.0",
-		"react-test-renderer": "15.4.1"
+		"react-test-renderer": "15.4.1",
+		"typescript": "^2.1.4"
 	},
 	"jest": {
 		"preset": "react-native"

@@ -1,8 +1,4 @@
-/* @flow */
-
-import React, {
-  Component,
-} from 'react';
+import * as React from 'react';
 import {
   Navigator,
   StyleSheet,
@@ -27,13 +23,17 @@ const styles = StyleSheet.create({
 
 type SceneName = 'list';
 
-type Scene = {
+interface Scene {
   name: SceneName,
   title: string,
   index: number,
 };
 
-const scenes: {[name: SceneName]: Scene} = {
+interface Scenes {
+  list: Scene;
+};
+
+const scenes: Scenes = {
   list: {
     name: 'list',
     title: 'SF Popos',
@@ -41,7 +41,7 @@ const scenes: {[name: SceneName]: Scene} = {
   },
 };
 
-export class PoposListTab extends Component<void, PoposList.Props, void> {
+export class PoposListTab extends React.Component<PoposList.Props, void> {
   constructor() {
     super();
     this._renderScene = this._renderScene.bind(this);
