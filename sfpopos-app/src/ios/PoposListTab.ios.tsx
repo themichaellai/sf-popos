@@ -41,7 +41,7 @@ export class PoposListTab extends React.Component<Props, void> {
       passProps,
     } = route;
     if (Component != null) {
-      const props = R.defaultTo({}, passProps);
+      const props = R.merge({ navigator }, R.defaultTo({}, passProps));
       return (
         <View style={styles.navigatorInner}>
           <Component {...props} />
@@ -53,10 +53,21 @@ export class PoposListTab extends React.Component<Props, void> {
   }
 
   render() {
+    const backHandler = (route: Route, nav: Navigator, index: number) => {
+      if (index == 0) {
+        return <View></View>;
+      } else {
+        return (
+          <View>
+            <Text onPress={() => nav.pop()}>Back</Text>
+          </View>
+        );
+      }
+    };
     const navigationBar = (
       <Navigator.NavigationBar
         routeMapper={{
-          LeftButton: () => <View />,
+          LeftButton: backHandler,
           RightButton: () => <View />,
           Title: ({ title }, navigator, index, navState) =>
             <Text style={styles.titleText}>{title}</Text>,

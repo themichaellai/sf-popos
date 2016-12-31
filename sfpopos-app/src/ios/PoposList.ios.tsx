@@ -11,6 +11,8 @@ import {
 
 import { PoposInfo } from '../types';
 
+import { PoposDetail } from './PoposDetail.ios';
+
 const rowStyles = StyleSheet.create({
   row: {
     padding: 15,
@@ -18,10 +20,18 @@ const rowStyles = StyleSheet.create({
 });
 
 const renderRow = R.curry((navigator: Navigator, popos: PoposInfo) => {
-  //const onPress = navigator.push({
-  //});
+  const onPress = () => navigator.push({
+    component: PoposDetail,
+    title: popos.name,
+    index: 1,
+    passProps: {
+      popos: popos,
+    },
+  });
   return (
-    <TouchableHighlight style={rowStyles.row}>
+    <TouchableHighlight
+      style={rowStyles.row}
+      onPress={onPress}>
       <Text>
         {popos.name}
       </Text>
