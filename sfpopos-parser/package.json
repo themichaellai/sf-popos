@@ -4,13 +4,23 @@
   "description": "Parses the SF POPOS KMZ data into JSON.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "./node_modules/.bin/tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "./node_modules/.bin/tsc -w"
   },
   "author": "Michael Lai <themichaellai@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "bluebird": "^3.4.6",
     "ramda": "^0.22.1",
+    "typescript": "^2.1.4",
     "xml2js": "^0.4.17"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.0.37",
+    "@types/node": "^6.0.55",
+    "@types/ramda": "git+ssh://git@github.com/types/npm-ramda.git#master",
+    "@types/xml2js": "^0.0.32",
+    "tslint": "^4.2.0"
   }
 }
