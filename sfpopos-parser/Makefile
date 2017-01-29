@@ -8,5 +8,8 @@ lint:
 lint-fix:
 	./node_modules/.bin/tslint --fix src/**/*
 
-popos.json:
+popos.json: popos-detail.json
 	node build/index.js
+
+popos-detail.json:
+	./scripts/get-popos-detail.sh > popos-detail.json
