@@ -40,6 +40,57 @@ interface RawPopos {
   };
 };
 
+// Response from POPOS arcgis /identify endpoint
+interface RawPoposMapElement {
+  Accessibility: string;
+  Art: string;
+  BLOCK_NUM: string;
+  CASE_NO: string;
+  COMMISSION_REQ_SIZE: string;
+  Description: string;
+  FOOD_SERVICE: string;
+  Food: string;
+  HOURS: string;
+  Hours_Type: string;
+  ID_For_Map: string;
+  LANDSCAPING: string;
+  LOCATION: string;
+  LOT_NUM: string;
+  Lattitue: string;
+  Longitude: string;
+  Map: string;
+  Motion_File: string;
+  NAME: string;
+  OBJECTID: string;
+  Observed_size: string;
+  POPOS_ADDRESS: string;
+  Pic_File: string;
+  RESTROOMS: string;
+  Required_size__by_code: string;
+  Restroom: string;
+  SEATING_No: string;
+  SOURCE: string;
+  Seating: string;
+  Seating_and_Tables: string;
+  Shape: string;
+  Subject_To_Downtown_PLN: string;
+  TYPE: string;
+  YEAR: string;
+  signage: string;
+};
+
+interface RawPoposResult {
+  attributes: RawPoposMapElement;
+  displayFieldName: string;
+  layerId: number;
+  layerName: 'Art' | 'POPOS';
+  value: string;
+};
+
+interface PoposDetailResponse {
+  results: Array<RawPoposResult>;
+};
+
 interface PoposDescription {
   FID: string;
   name: string;
@@ -120,11 +171,37 @@ const parseKml = (data: any): Array<Popos> => {
   return res;
 };
 
+// Add image filename from arcgis response to POPOS parsed eariler.
+const mergeDetails = (
+  allPopos: Array<Popos>,
+  mapElements: Array<RawPoposMapElement>,
+): Array<Popos> => {
+  const mapElementsByName =
+    R.indexBy<RawPoposMapElement>(R.prop('NAME'), mapElements);
+  return allPopos.map(popos => {
+    const mapElement = mapElementsByName[popos.name];
+    if (mapElement == null) {
+      return popos;
+    } else {
+      return R.assoc('imageFilename', mapElement.Pic_File, popos);
+    }
+  });
+};
+
 (() => {
+  // TODO: replace these with cli args / option to download
   const contents =
     fs.readFileSync(`${__dirname}/../POPOSData/doc.kml`).toString();
-  const parsedXml = parseXml<any>(contents);
-  const parsed = parseKml(parsedXml);
+  const poposParsedXml = parseXml<any>(contents);
+  const parsed = parseKml(poposParsedXml);
+
+  const details =
+    fs.readFileSync(`${__dirname}/../popos-detail.json`).toString();
+  const detailsParsedXml = JSON.parse(details) as PoposDetailResponse;
+  const rawMapElements = detailsParsedXml.results.map(r => r.attributes);
+
+  const poposWithDetails = mergeDetails(parsed, rawMapElements);
+
   fs.writeFileSync(`${__dirname}/../popos.json`,
-                   JSON.stringify(parsed, null, 2));
+                   JSON.stringify(poposWithDetails, null, 2));
 })();
